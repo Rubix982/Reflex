@@ -1,0 +1,78 @@
+.leftContent {
+  display: grid;
+  grid-template-rows: 20% 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.leftContent::-webkit-scrollbar {
+  display: none;
+}
+
+.logo {
+  height: 170px;
+  width: 170px;
+  padding-left: 0px;
+  padding-top: 0px;
+  margin-top: 0px;
+  border-radius: 2px;
+}
+
+.logo img {
+  height: 100%;
+  width: 100%;
+}
+
+.rightContent {
+  color: white;
+  background: url("../../assets/img/background_wallpaper/Login.jpg") no-repeat
+    center center;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.links {
+  margin: 25px;
+  display: flex;
+  flex-direction: row;
+}
+
+.links a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-weight: lighter;
+  margin-left: 20px;
+}
+
+.links a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-weight: lighter;
+  margin-left: 20px;
+}
+
+.links a:hover,
+.links a:focus 
+{
+  color: sandybrown;
+}
+
+.GridPartitioning {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.HideScrollBar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.HideScrollBar::-webkit-scrollbar {
+  display: none;
+}
