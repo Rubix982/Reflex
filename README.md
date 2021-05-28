@@ -12,6 +12,7 @@ Reflex is a small imitation of the Flex Student application at FAST NUCES @ Kara
 
 To get started, you can check out the,
 
+
 {% page-ref page="project-structure.md" %}
 
 {% page-ref page="system-requirements.md" %}
@@ -45,6 +46,4 @@ Please contact the following for any support, bug reports, or any helpful advice
 * Saif Ul Islam, [https://github.com/rubix982](https://github.com/rubix982)
 * Muhammad Anas Aziz Siddiqui, [https://github.com/sidanas22](https://github.com/sidanas22)
 * Muhammad Taha, [https://github.com/i-Taha](https://github.com/i-Taha)
-
-
 
