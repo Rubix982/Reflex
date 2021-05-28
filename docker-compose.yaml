@@ -2,7 +2,7 @@ version: "2"
 
 services:
   backend:
-    container_name: backend
+    container_name: backend-reflex
     build: ./server
     restart: always
     volumes:
@@ -12,7 +12,7 @@ services:
       - "5000:5000"
 
   web-server:
-    container_name: web-server
+    container_name: web-server-reflex
     build: ./web-server
     restart: always
     volumes:
@@ -23,13 +23,11 @@ services:
       - "8080:8080"
     depends_on:
       - backend
-      - mysql
       - mongo
-      - neo4j
-      - cache-store
+      - mysql
 
   mysql:
-    container_name: primary
+    container_name: primary-reflex
     image: mysql
     restart: always
     environment:
@@ -41,7 +39,7 @@ services:
       - "3306"
 
   mongo:
-    container_name: secondary
+    container_name: secondary-reflex
     image: mongo
     restart: always
     environment:
@@ -51,40 +49,3 @@ services:
       - "./data/mongodb:/data/db"
     expose:
       - "27017"
-  
-  neo4j:
-    container_name: graphdb
-    hostname: neo4j
-    image: neo4j:4.2.1-enterprise
-    restart: always
-    environment:
-      NEO4J_AUTH: neo4j/${PASSWORD}
-      NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes' 
-      NEO4J_dbms_security_procedures_unrestricted: apoc.*
-      NEO4J_apoc_import_file_enabled: 'true'
-      NEO4J_dbms_shell_enabled: 'true'
-      NEO4J_dbms.ssl.policy.bolt.client_auth: NONE
-      NEO4J_dbms.ssl.policy.https.client_auth: NONE
-      dbms.ssl.policy.https.client_auth: NONE
-      dbms.ssl.policy.bolt.client_auth: NONE     
-    volumes:
-      - "./data/neo4j/data:/data"
-      - "./data/neo4j/logs:/logs"
-      - "./data/neo4j/import:/var/lib/neo4j/import"
-      - "./data/neo4j/plugins:/plugins"
-    ports:
-      - "7474"
-      - "7473"
-      - "7687"
-
-  cache-store:
-    container_name: cache-store
-    image: redis
-    restart: always
-    ports: 
-      - "6379"
-    volumes:
-      - "./data/redis/redis-data:/var/lib/redis"
-      - "./data/redis/redis.conf:/usr/local/etc/redis/redis.conf"
-    environment: 
-      REDIS_REPLICATION_MODE: master
