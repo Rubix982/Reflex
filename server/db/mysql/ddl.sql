@@ -14,6 +14,8 @@ CREATE TABLE Course (
   Teacher_Handle VARCHAR(40) NOT NULL,
   Description VARCHAR(200),
   Name VARCHAR(50) NOT NULL,
+  Created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  DisplayPicture VARCHAR(15) DEFAULT '1.jpg',
   PRIMARY KEY (_id, Teacher_Handle),
   CONSTRAINT HandleCourse FOREIGN KEY (Teacher_Handle) REFERENCES Teacher (Handle) ON DELETE CASCADE ON UPDATE CASCADE
 );

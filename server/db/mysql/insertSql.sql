@@ -51,35 +51,41 @@ INSERT INTO Course (
         _id,
         Teacher_Handle,
         Description,
-        Name
+        Name,
+        Created
     )
 VALUES (
         1,
         'saif',
         'This is a description',
-        'Computer Networking'
+        'Computer Networking',
+        now()
     );
 INSERT INTO Course (
         _id,
         Teacher_Handle,
         Description,
-        Name
+        Name,
+        Created
     )
 VALUES (
         2,
         'anas',
         'This is a description',
-        'Information Security'
+        'Information Security',
+        now()
     );
 INSERT INTO Course (
         _id,
         Teacher_Handle,
         Description,
-        Name
+        Name,
+        Created
     )
 VALUES (
         3,
         'taha',
         'This is a description',
-        'Artificial Intelligence'
+        'Artificial Intelligence',
+        now()
     );

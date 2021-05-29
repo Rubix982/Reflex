@@ -17,7 +17,7 @@ const UserProvider = (props) => {
           const response = await API.getRequest(`${process.env.REACT_APP_API_URL}/navbar`);
           setUserHandle(response.Handle);
           setUserName(response.Username);
-          setImageSource('/assets/img/profile_pictures/' + response.ProfilePicture);
+          setImageSource('/assets/img/students/' + response.ProfilePicture);
           return setImageSource;
         } catch (error) {
           alert(error.message);
