@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 build-prod:
 	sudo docker-compose -f docker-compose.yaml up --build
 
@@ -5,10 +7,10 @@ up-prod:
 	sudo docker-compose -f docker-compose.yaml up
 
 stop:
-	docker container stop $(docker ps -aq)
+	docker container stop $(docker-compose ps -aq)
 
 delete:
-	docker container rm $(docker ps -aq)
+	docker container rm $(docker-compose ps -aq)
 
 remove:
 	sudo docker-compose down --remove-orphans
@@ -22,14 +24,8 @@ up:
 ps:
 	sudo docker-compose ps -a
 
-primary:
-	sudo docker exec -it primary bash
+primary-reflex:
+	sudo docker exec -it primary-reflex bash
 
-secondary:
-	sudo docker exec -it secondary bash
-
-graphdb:
-	sudo docker exec -it graphdb bash
-
-cache:
-	sudo docker exec -it cache-store bash
+secondary-reflex:
+	sudo docker exec -it secondary-reflex bash
