@@ -17,7 +17,7 @@ const MainContent = () => {
       const status = await verifyUser(hash);
       setLoading(!status);
       verified.setter(true);
-      history.push('/feed')
+      // history.push('/feed')
     } catch (error) {
       alert(error.message);
     }

@@ -12,7 +12,7 @@ const MainContent = () => {
 
   return (
     <div className={ComponentStyling.content}>
-      <h1>We are Terrabuzz</h1>
+      <h1>Reflex</h1>
 
       <h2>Please login to continue</h2>
 
@@ -30,7 +30,7 @@ const MainContent = () => {
           value="remember-me"
         />
         <label className={ComponentStyling.rememberMe}> Remember Me </label>
-        <a href="/forgetPassword" className={ComponentStyling.forget}>
+        <a href="/forget" className={ComponentStyling.forget}>
           Forgot Password?
         </a>
         <br />
@@ -41,7 +41,7 @@ const MainContent = () => {
               login.setter(true);
               firstLogin.setter(firstLoginStatus);
               verified.setter(verificationStatus);
-              history.push('/feed');
+              // history.push('/feed');
             }, 3000);
           } catch (error) {
             alert(error.message);

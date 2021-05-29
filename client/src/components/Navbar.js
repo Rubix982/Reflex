@@ -44,8 +44,8 @@ const Navbar = () => {
           </div>
         </RightAlign>
         <div className={ComponentStyling.title}>
-          <Link to="/feed">
-            <h1>Terrabuzz</h1>
+          <Link to="/">
+            <h1>Reflex</h1>
           </Link>
         </div>
       </div>

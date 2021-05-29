@@ -22,13 +22,12 @@ const MainContent = () => {
         <div className={ComponentStyling.title}>
           <div className={ComponentStyling.heading}>
             <h1>
-              <a href="/">Terrabuzz</a>
+              <a href="/">Reflex</a>
             </h1>
           </div>
           <div className={ComponentStyling.description}>
             <p>
-              Just a project from university students about a social media
-              application.
+              Just a project from university students about an attendance system
               <br />
               <a style={textStyling} href="/login">
                 Login

@@ -3,7 +3,7 @@ import Template from '../components/Login-Register-FP/template';
 import { MainContent } from '../components/FirstLogin/MainContent';
 import ImageSource from '../assets/FirstLogin/firstLogin.jpg';
 import { loginUserContext } from '../components/LoginUserContext';
-import Feed from './feed';
+// import Feed from './feed';
 
 const FirstLogin = () => {
   const { login, firstLogin } = useContext(loginUserContext);
@@ -20,7 +20,7 @@ const FirstLogin = () => {
     );
   }
 
-  return (<Feed />);
+  // return (<Feed />);
 };
 
 export default FirstLogin;

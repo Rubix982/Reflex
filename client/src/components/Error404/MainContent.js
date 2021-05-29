@@ -15,13 +15,13 @@ const MainContent = () => (
       <div className={ComponentStyling.title}>
         <div className={ComponentStyling.heading}>
           <h1>
-            <Link to="/">Terrabuzz</Link>
+            <Link to="/">Reflex</Link>
           </h1>
         </div>
         <div className={ComponentStyling.description}>
           <p>
             The requested page could not be found. Sorry for the
-            inconvenience.
+            inconvenience
           </p>
         </div>
       </div>

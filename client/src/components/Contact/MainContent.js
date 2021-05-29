@@ -29,19 +29,19 @@ const MainContent = () => {
             <div>
               <ul>
                 <li>
-                  Tashik Moin Sheikh (
+                  Muhammad Taha (
                   {' '}
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=tashikmoinsheikh@gmail.com">
-                    tashikmoinsheikh@gmail.com
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=k181270@nu.edu.pk">
+                    k181270@nu.edu.pk
                   </a>
                   {' '}
                   )
                 </li>
                 <li>
-                  Muhammad Hassan Zahid (
+                  Muhammad Anas Aziz Siddiqui (
                   {' '}
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=hassanzhd2000@gmail.com">
-                    hassanzhd2000@gmail.com
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=k181090@nu.edu.pk">
+                    k181090@nu.edu.pk
                   </a>
                   {' '}
                   )
@@ -49,8 +49,8 @@ const MainContent = () => {
                 <li>
                   Saif Ul Islam (
                   {' '}
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=saifulislam84210@gmail.com">
-                    saifulislam84210@gmail.com
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=k180307@nu.edu.pk">
+                    k180307@nu.edu.pk
                   </a>
                   {' '}
                   )

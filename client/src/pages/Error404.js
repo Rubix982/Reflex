@@ -1,5 +1,5 @@
 import React from 'react';
-import MainContent from '../components/Error/MainContent';
+import MainContent from '../components/Error404/MainContent';
 
 const Error404 = () => <MainContent />;
 

@@ -70,7 +70,7 @@ const MainContent = () => {
       alert(`Unable to submit form due to error "${error.message}"`)
     }
 
-    history.push('/feed');
+    // history.push('/feed');
   };
 
   const FemaleProfilePictureGrid = () => {
@@ -79,31 +79,45 @@ const MainContent = () => {
         <div className={selectPicture[0] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [true, false, false, false] })}
+          onClick={() => setSelectPicture(() => { return [true, false, false, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/girl.svg' alt='' />
         </div>
         <div className={selectPicture[1] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, true, false, false] })}
+          onClick={() => setSelectPicture(() => { return [false, true, false, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/girl(1).svg' alt='' />
         </div>
         <div className={selectPicture[2] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, false, true, false] })}
+          onClick={() => setSelectPicture(() => { return [false, false, true, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/girl(2).svg' alt='' />
         </div>
         <div className={selectPicture[3] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, false, false, true] })}
+          onClick={() => setSelectPicture(() => { return [false, false, false, true, false, false] })}
         >
           <img src='/assets/img/profile_pictures/girl(3).svg' alt='' />
         </div>
+        <div className={selectPicture[4] ?
+          `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
+          : `${ComponentStyling.pictureElement}`}
+          onClick={() => setSelectPicture(() => { return [false, false, false, false, true, false] })}
+        >
+          <img src='/assets/img/profile_pictures/girl(4).svg' alt='' />
+        </div>
+        <div className={selectPicture[5] ?
+          `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
+          : `${ComponentStyling.pictureElement}`}
+          onClick={() => setSelectPicture(() => { return [false, false, false, false, false, true] })}
+        >
+          <img src='/assets/img/profile_pictures/girl(5).svg' alt='' />
+        </div>                
       </div>
     );
   };
@@ -111,39 +125,48 @@ const MainContent = () => {
   const MaleProfilePictureGrid = () => {
     return (
       <div className={ComponentStyling.gridStylingForPictures}>
-
         <div className={selectPicture[0] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [true, false, false, false] })}
+          onClick={() => setSelectPicture(() => { return [true, false, false, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/boy.svg' alt='' />
         </div>
-
         <div className={selectPicture[1] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, true, false, false] })}
+          onClick={() => setSelectPicture(() => { return [false, true, false, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/boy(1).svg' alt='' />
         </div>
-
         <div className={selectPicture[2] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, false, true, false] })}
+          onClick={() => setSelectPicture(() => { return [false, false, true, false, false, false] })}
         >
           <img src='/assets/img/profile_pictures/boy(2).svg' alt='' />
         </div>
-
         <div className={selectPicture[3] ?
           `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
           : `${ComponentStyling.pictureElement}`}
-          onClick={() => setSelectPicture(() => { return [false, false, false, true] })}
+          onClick={() => setSelectPicture(() => { return [false, false, false, true, false, false] })}
         >
           <img src='/assets/img/profile_pictures/boy(3).svg' alt='' />
         </div>
-
+        <div className={selectPicture[4] ?
+          `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
+          : `${ComponentStyling.pictureElement}`}
+          onClick={() => setSelectPicture(() => { return [false, false, false, false, true, false] })}
+        >
+          <img src='/assets/img/profile_pictures/boy(4).svg' alt='' />
+        </div>
+        <div className={selectPicture[5] ?
+          `${ComponentStyling.pictureToggle} ${ComponentStyling.pictureElement}`
+          : `${ComponentStyling.pictureElement}`}
+          onClick={() => setSelectPicture(() => { return [false, false, false, false, false, true] })}
+        >
+          <img src='/assets/img/profile_pictures/boy(5).svg' alt='' />
+        </div>                
       </div>
     );
   };
@@ -157,7 +180,7 @@ const MainContent = () => {
   }
 
   if (isFormSubmitted === true) {
-    history.push('/feed');
+    // history.push('/feed');
   } else {
     return (
       <div className={ComponentStyling.content}>
