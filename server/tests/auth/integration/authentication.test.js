@@ -1,4 +1,4 @@
-const { generateAccessToken, verifyAccessToken } = require('../../../services/auth.js');
+const { generateAccessToken, verifyAccessToken } = require('../../../services/auth');
 
 describe('Testing for access token creation on login', () => {
   test('should return an access-token', () => {

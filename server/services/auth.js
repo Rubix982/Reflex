@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const mysql = require('../db/mysql/connection.js');
+const mysql = require('../db/mysql/connection');
 require('dotenv').config();
 
 const verifyUserCredentials = async ({ email: __email, password: __password }) => {

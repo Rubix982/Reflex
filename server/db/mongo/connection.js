@@ -6,7 +6,7 @@ const MONGOOSE = require('mongoose');
 require('dotenv').config();
 
 const connect = async () => {
-  MONGOOSE.connect(`mongodb://root:${process.env.PASSWORD}@mongo:27017`, { useUnifiedTopology: true, useNewUrlParser: true, dbName: 'TERRABUZZ' }, (error) => {
+  MONGOOSE.connect(`mongodb://root:${process.env.PASSWORD}@mongo:27017`, { useUnifiedTopology: true, useNewUrlParser: true, dbName: 'REFLEX' }, (error) => {
     if (!error) {
       return console.log('Connected to Mongoose successfully!');
     }

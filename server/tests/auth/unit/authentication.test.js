@@ -1,4 +1,4 @@
-const { verifyUserCredentials } = require('../../../services/auth.js');
+const { verifyUserCredentials } = require('../../../services/auth');
 
 describe('Testing for valid user credentials', () => {
   test('should return true as valid credentails', () => {

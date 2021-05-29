@@ -1,14 +1,16 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const indexRouter = require('./routes/index.js');
-const middleware = require('./middleware/index.js');
-const MONGOOSE_CONNECTOR = require('./db/mongo/connection.js');
+const indexRouter = require('./routes/index');
+const middleware = require('./middleware/index');
+const sqlScript = require('./db/mysql/sqlScript');
+const MONGOOSE_CONNECTOR = require('./db/mongo/connection');
 
 const app = express();
 require('dotenv').config();
 
 MONGOOSE_CONNECTOR.connect();
+sqlScript.createAndInsert();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

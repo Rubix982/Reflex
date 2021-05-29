@@ -1,4 +1,4 @@
-const { verifyAccessToken } = require('../services/auth.js');
+const { verifyAccessToken } = require('../services/auth');
 
 module.exports.notFound = (req, res, next) => {
   const error = new Error('ERROR 404');
