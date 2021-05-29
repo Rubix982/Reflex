@@ -70,7 +70,7 @@ const MainContent = () => {
       alert(`Unable to submit form due to error "${error.message}"`)
     }
 
-    // history.push('/feed');
+    history.push('/feed');
   };
 
   const FemaleProfilePictureGrid = () => {
@@ -180,7 +180,7 @@ const MainContent = () => {
   }
 
   if (isFormSubmitted === true) {
-    // history.push('/feed');
+    history.push('/feed');
   } else {
     return (
       <div className={ComponentStyling.content}>

@@ -41,7 +41,7 @@ const MainContent = () => {
               login.setter(true);
               firstLogin.setter(firstLoginStatus);
               verified.setter(verificationStatus);
-              // history.push('/feed');
+              history.push('/feed');
             }, 3000);
           } catch (error) {
             alert(error.message);
