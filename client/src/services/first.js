@@ -2,16 +2,12 @@ import API from '../API/API.js';
 require('dotenv').config();
 
 export const sendFirstLoginToBackend = async (__userInformationBlob) => {
-    if (!__userInformationBlob.activities ||
-        !__userInformationBlob.biography ||
-        !__userInformationBlob.profilePicture ||
-        !__userInformationBlob.interests ||
-        !__userInformationBlob.location) {
+    if (!__userInformationBlob.profilePicture) {
         throw new Error('Required fields are empty')
     }
 
     try {
-        await API.postRequest(`${process.env.REACT_APP_API_URL}/firstLogin`,
+        await API.postRequest(`${process.env.REACT_APP_API_URL}/first`,
             { userInformation: __userInformationBlob }
         )
     } catch (error) {

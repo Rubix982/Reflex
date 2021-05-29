@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const verifyUserCredentials = async ({ email: __email, password: __password }) => {
   // Checking if the user exists within the database
-  let __query = `SELECT Password FROM TERRABUZZ.UserInformation WHERE Email='${__email}'`;
+  let __query = `SELECT Password FROM REFLEX.Teacher WHERE Email='${__email}'`;
   let result;
   try {
     [result] = await mysql.connection.query(__query);
@@ -20,6 +20,12 @@ const verifyUserCredentials = async ({ email: __email, password: __password }) =
   const passwordFromDatabase = result[0].Password;
   let compare;
 
+  console.log(passwordFromDatabase, __password);
+
+  bcrypt.hash(__password, 12, (err, hash) => {
+    console.log(err, hash);
+  });
+
   // Compare both with bcrypt
   try {
     compare = await bcrypt.compare(__password, passwordFromDatabase);
@@ -30,7 +36,7 @@ const verifyUserCredentials = async ({ email: __email, password: __password }) =
   // If compare returns true, ie, both are the same
   if (compare === true) {
     // Query handle
-    __query = `SELECT Handle FROM TERRABUZZ.UserInformation WHERE Email='${__email}'`;
+    __query = `SELECT Handle FROM REFLEX.Teacher WHERE Email='${__email}'`;
     try {
       // Get handle
       [result] = await mysql.connection.query(__query);

@@ -7,7 +7,7 @@ INSERT INTO Teacher (
     )
 VALUES (
         'k180307@nu.edu.pk',
-        '$2y$12$zk4LgpuQZqVygsd9r7XAFuJtuRTafn4ZMNqwF8lgGbdRK13XnHMLm',
+        '$2b$12$BBuMdZosXywisiyEzdm9MOPI8Zrdx27uO7j8wh1TrZ8ASF8t8CwWq',
         'saif',
         'Saif Ul Islam'
     );
@@ -19,7 +19,7 @@ INSERT INTO Teacher (
     )
 VALUES (
         'k181090@nu.edu.pk',
-        '$2y$12$RO2p00CDB.XZAG/hl.mrQepiuyLTbtosBFUolBbz0rImAfz0btxcC',
+        '$2b$12$1GnQUFa9f1b0ScmzVRYtTeMrHcPT/t5pjuDXWc9YekxYWIiEK2Ko6',
         'anas',
         'Muhammad Anas Aziz Siddiqui'
     );
@@ -31,7 +31,7 @@ INSERT INTO Teacher (
     )
 VALUES (
         'K181270@nu.edu.pk',
-        '$2y$12$hY/eEcnJEVmnmEJNVLtXQOviaFiKzgBW/ok5YQRGXuE0TGQvwEP.S',
+        '$2b$12$40nR8Wpzmkku9/sgBrmNEO0PePw4ayKmxV9Z89U/pGkdx70c0jO/u',
         'taha',
         'Muhammad Taha'
     );
@@ -43,7 +43,7 @@ INSERT INTO Teacher (
     )
 VALUES (
         'johndoe@gmail.com',
-        '$2y$12$aqEixiND.okFFVW7Wlr0WuqWz7HEgKgTj8x/BErCKkKtyQQuYTU2.',
+        '$2b$12$NS4N3LGS250elIigcwiuUOhqYHB7zJgTGRSen64qx9.c3Hd6ailMO',
         'john',
         'John Doe'
     );
