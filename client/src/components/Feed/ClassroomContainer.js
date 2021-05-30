@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Local imports
 import ClassroomEntry from './ClassroomEntry';
+import { getClassroomsForTeacher } from '../../services/classrooms';
 
 // Material UI Imports
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+
+// Local imports
+import Background from './../../assets/img/background_wallpaper/Login.jpg';
 
 const useStyles = makeStyles((theme) => ({
   containerSizing: {
@@ -25,52 +27,68 @@ const useStyles = makeStyles((theme) => ({
   },
   control: {
     padding: theme.spacing(2)
-  }  
+  }
 }));
+
 
 const ClassroomContainer = () => {
 
-  const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
+  const [teacherData, setTeacherData] = useState({});
 
+  useEffect(async () => {
+    if (Object.entries(teacherData).length === 0) {
+      try {
+        const data = await getClassroomsForTeacher();
+        setTeacherData(data);
+      } catch (err) {
+        alert('Unable to fetch classrooms!');
+      };
+    };
+  });
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container className={classes.containerSizing} maxWidth='lg'>
-        {/* <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} /> */}
-        <Grid container className={classes.root} spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justify="center" spacing={spacing}>
-              {[0, 1, 2].map((value) => (
-                <Grid key={value} item>
-                  <ClassroomEntry className={classes.paper} />
-                </Grid>
-              ))}
-            </Grid>
-            <Grid container justify="center" spacing={spacing}>
-              {[0, 1, 2].map((value) => (
-                <Grid key={value} item>
-                  <ClassroomEntry className={classes.paper} />
-                </Grid>
-              ))}
-            </Grid>
-            <Grid container justify="center" spacing={spacing}>
-              {[0, 1, 2].map((value) => (
-                <Grid key={value} item>
-                  <ClassroomEntry className={classes.paper} />
-                </Grid>
-              ))}
+  if (Object.entries(teacherData).length === 0) {
+    return (
+      <>
+      </>
+    );
+  } else {
+
+    const ids = []
+
+    const CompleteGridView = teacherData.classrooms.map((entry) => {
+      
+      ids.push(entry._id);
+      
+      return (<Grid key={entry._id} item>
+        <ClassroomEntry title={entry.name} subheader={entry.created} image={`/assets/img/classrooms/${entry.displayPicture}`} content={entry.description} className={classes.paper} />
+      </Grid>
+      )
+    });
+
+    console.log(CompleteGridView);
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <Container className={classes.containerSizing} maxWidth='lg'>
+          <Grid container className={classes.root} spacing={8}>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={8}>
+                {/* {ids.map((value) => (
+                  <Grid key={value} item>
+                    <ClassroomEntry title={"Artificial Intelligence"} subheader={"September 14, 2016"} image={Background} content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam justo at scelerisque euismod. Phasellus semper malesuada sapien ut gravida. Aenean dapibus dignissim pellentesque. Suspendisse tincidunt ante in nulla tempor posuere. Phasellus venenatis sodales neque in laoreet."} className={classes.paper} />
+                  </Grid>
+                ))} */}
+                {CompleteGridView}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Container>
-    </React.Fragment>
-  );
+        </Container>
+      </React.Fragment>
+    );
+  };
 };
 
 export default ClassroomContainer;

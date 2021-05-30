@@ -33,23 +33,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClassroomEntry = (() => {
+const ClassroomEntry = ((props) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        title="Artificial Intelligence"
-        subheader="September 14, 2016"
+        title={props.title}
+        subheader={props.subheader}
       />
       <CardMedia
         className={classes.media}
-        image={Background}
-        title="Artificial Intelligence"
+        image={props.image}
+        title={props.title}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam justo at scelerisque euismod. Phasellus semper malesuada sapien ut gravida. Aenean dapibus dignissim pellentesque. Suspendisse tincidunt ante in nulla tempor posuere. Phasellus venenatis sodales neque in laoreet.
+          {props.content}
         </Typography>
       </CardContent>
     </Card>

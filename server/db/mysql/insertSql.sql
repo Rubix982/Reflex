@@ -57,7 +57,7 @@ INSERT INTO Course (
 VALUES (
         1,
         'saif',
-        'This is a description',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
         'Computer Networking',
         now()
     );
@@ -71,7 +71,7 @@ INSERT INTO Course (
 VALUES (
         2,
         'anas',
-        'This is a description',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
         'Information Security',
         now()
     );
@@ -85,7 +85,63 @@ INSERT INTO Course (
 VALUES (
         3,
         'taha',
-        'This is a description',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
         'Artificial Intelligence',
         now()
     );
+INSERT INTO Course (
+        _id,
+        Teacher_Handle,
+        Description,
+        Name,
+        Created
+    )
+VALUES (
+        4,
+        'saif',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
+        'Big Data',
+        now()
+    );
+INSERT INTO Course (
+        _id,
+        Teacher_Handle,
+        Description,
+        Name,
+        Created
+    )
+VALUES (
+        5,
+        'saif',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
+        'Blockchain',
+        now()
+    );
+INSERT INTO Course (
+        _id,
+        Teacher_Handle,
+        Description,
+        Name,
+        Created
+    )
+VALUES (
+        6,
+        'saif',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
+        'Information Retrieval',
+        now()
+    );    
+INSERT INTO Course (
+        _id,
+        Teacher_Handle,
+        Description,
+        Name,
+        Created
+    )
+VALUES (
+        7,
+        'saif',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit viverra dapibus. Nam maximus malesuada risus, eu suscipit lacus consectetur vel. Pellentesque ornare risus quis diam tincidunt, et lobortis nunc ultricies. Sed vel erat vitae quam egestas feugiat eget id augue. Etiam congue nec augue quis imperdiet. Nulla facilisi. Nulla facilisi.',
+        'Deep Learning For Perception',
+        now()
+    );    

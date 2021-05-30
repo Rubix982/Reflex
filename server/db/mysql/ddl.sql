@@ -4,6 +4,7 @@ CREATE TABLE Teacher (
   Password VARCHAR(100) NOT NULL,
   Handle VARCHAR(40) NOT NULL,
   UserName VARCHAR(50) NOT NULL,
+  Biography VARCHAR(400) NOT NULL DEFAULT 'I am a teacher!',
   PRIMARY KEY (Handle),
   ProfilePicture VARCHAR(15) DEFAULT 'boy(3).svg',
   JoinedWebsite DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE Teacher (
 CREATE TABLE Course (
   _id VARCHAR(40) NOT NULL,
   Teacher_Handle VARCHAR(40) NOT NULL,
-  Description VARCHAR(200),
+  Description VARCHAR(400),
   Name VARCHAR(50) NOT NULL,
   Created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   DisplayPicture VARCHAR(15) DEFAULT '1.jpg',
