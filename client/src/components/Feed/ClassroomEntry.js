@@ -7,9 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 
-// Local imports
-import Background from './../../assets/img/background_wallpaper/Login.jpg';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,

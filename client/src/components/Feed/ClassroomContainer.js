@@ -10,9 +10,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 
-// Local imports
-import Background from './../../assets/img/background_wallpaper/Login.jpg';
-
 const useStyles = makeStyles((theme) => ({
   containerSizing: {
     marginTop: '3em'
@@ -67,8 +64,6 @@ const ClassroomContainer = () => {
       )
     });
 
-    console.log(CompleteGridView);
-
     return (
       <React.Fragment>
         <CssBaseline />
@@ -76,11 +71,6 @@ const ClassroomContainer = () => {
           <Grid container className={classes.root} spacing={8}>
             <Grid item xs={12}>
               <Grid container justify="center" spacing={8}>
-                {/* {ids.map((value) => (
-                  <Grid key={value} item>
-                    <ClassroomEntry title={"Artificial Intelligence"} subheader={"September 14, 2016"} image={Background} content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam justo at scelerisque euismod. Phasellus semper malesuada sapien ut gravida. Aenean dapibus dignissim pellentesque. Suspendisse tincidunt ante in nulla tempor posuere. Phasellus venenatis sodales neque in laoreet."} className={classes.paper} />
-                  </Grid>
-                ))} */}
                 {CompleteGridView}
               </Grid>
             </Grid>
