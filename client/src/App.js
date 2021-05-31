@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Error404 from './pages/Error404';
 import FirstLogin from './pages/FirstLogin';
 import Class from './pages/Class';
+import Profile from './pages/Profile';
 
 // Data Context
 import UserProvider from './components/userDataContext'
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/first' component={FirstLogin} />
               <Route path='/class/:id' component={Class} />
+              <Route exact path='/profile/:id' component={Profile} />
               <Route component={Error404} />
             </Switch>
           </Router>

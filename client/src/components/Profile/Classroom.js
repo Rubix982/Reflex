@@ -18,8 +18,7 @@ import {
 } from '@material-ui/core';
 
 // Local imports
-import PeopleEntry from './PeopleEntry';
-
+import ClassroomEntry from './ClassroomEntry';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
         background: '#FFFFFF',
         boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px',
-        margin: '150px auto',
     },
     studentContainerHeader: {
         height: '62px',
@@ -93,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: '28px',
         color: '#000000',
         textAlign: 'center',
-        // justifyContent: 'center',
         margin: '18px',
     },
     studentContainerBody: {
@@ -132,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const People = () => {
+const Classroom = () => {
     // The first commit of Material-UI
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -151,26 +148,26 @@ const People = () => {
             <Grid container className={classes.studentInfoContainer}>
                 <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
                     <Grid container>
-                        <Grid container direction="row"
+                        <Grid container direction="column"
                             justify="space-between"
                             alignItems="stretch"
                             className={`${classes.studentContainerHeader}`}>
                             <Grid item xs={6}>
                                 <div className={`${classes.studentHeader} ${classes.studentContainerHeaderText}`}>
-                                    Students
+                                    Classrooms
                                 </div>
                             </Grid>
                             <Grid item xs={6}>
                                 <div className={`${classes.addStudent} ${classes.studentContainerHeaderText}`}>
                                     <Button className={`${classes.addStudent}`} onClick={handleClickOpen}>
-                                        + Students
+                                        + Classroom
                                     </Button>
                                     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                                         <DialogTitle id="form-dialog-title">Adding A New Student</DialogTitle>
                                         <DialogContent>
                                             <DialogContentText>
-                                                To add a new student to this class, please fill in the form below.
-                                                The images can be chosen from <i>boy(1).svg, ... boy(5).svg</i>, and similarly from <i>girl(1).svg, ... girl(5).svg</i>
+                                                To create a new class, please fill in the form below.
+                                                The images can be chosen from <i>1.jpg, ... , 10.jpg</i>
                                             </DialogContentText>
                                             <TextField
                                                 autoFocus
@@ -180,6 +177,14 @@ const People = () => {
                                                 type="email"
                                                 fullWidth
                                             />
+                                            <TextField
+                                                autoFocus
+                                                margin="dense"
+                                                id="name"
+                                                label="Description"
+                                                type="email"
+                                                fullWidth
+                                            />                                            
                                             <TextField
                                                 autoFocus
                                                 margin="dense"
@@ -203,14 +208,14 @@ const People = () => {
                         </Grid>
                     </Grid>
                     <Grid className={classes.studentContainerBody} item xs={12}>
-                        <Grid item>
-                            <PeopleEntry />
+                    <Grid item>
+                            <ClassroomEntry />
                         </Grid>
                         <Grid item>
-                            <PeopleEntry />
+                            <ClassroomEntry />
                         </Grid>
                         <Grid item>
-                            <PeopleEntry />
+                            <ClassroomEntry />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -219,4 +224,4 @@ const People = () => {
     );
 };
 
-export default People;
+export default Classroom;

@@ -6,8 +6,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-// Icons
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -56,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ViewEntry = () => {
+const ClassroomEntry = () => {
     const classes = useStyles();
 
     return (
@@ -75,9 +73,18 @@ const ViewEntry = () => {
                 </Grid>
                 <Grid className={classes.entryDetail} item xs={3}>
                     <Paper className={classes.paper}>
-                        <span className={`${classes.name} ${classes.fullDim}`}>
-                            Saif Ul Islam
-                        </span>
+                        <Grid container direction='column' justify='flex-start' alignItems='flex-start'>
+                            <Grid item>
+                                <span className={`${classes.name} ${classes.fullDim}`}>
+                                    Artificial Intelligence
+                                </span>
+                            </Grid>
+                            <Grid item>
+                                <span>
+                                    Lorem ipsum dolor sit amet,
+                                </span>
+                            </Grid>
+                        </Grid>
                     </Paper>
                 </Grid>
             </Grid>
@@ -85,4 +92,4 @@ const ViewEntry = () => {
     );
 };
 
-export default ViewEntry;
+export default ClassroomEntry;
