@@ -3,24 +3,32 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const AttendanceRecord = new Schema({
+  teacher_handler: {
+    type: String,
+    maxlength: 40,
+    required: true,
+  },
   course_id: {
     type: String,
-    maxlength: 40,
     required: true,
-    default: false,
+    maxlength: 100,
   },
-  student_id: {
+  date: {
     type: String,
-    maxlength: 40,
     required: true,
-    default: false,
+    maxlength: 40,
+    default: String(new Date()),
   },
   presence: {
-    type: String,
-    maxlength: 4,
+    type: [String],
     required: true,
-    default: false,
+  },
+  names: {
+    type: [String],
+    required: true,
   },
 });
+
+AttendanceRecord.index({ teacher_handler: 1, course_id: 1, date: 1 }, { unique: true });
 
 module.exports.Attendance = mongoose.model('Attendance', AttendanceRecord);

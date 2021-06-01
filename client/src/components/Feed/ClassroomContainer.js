@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Local imports
 import ClassroomEntry from './ClassroomEntry';
@@ -52,15 +53,14 @@ const ClassroomContainer = () => {
     );
   } else {
 
-    const ids = []
-
     const CompleteGridView = teacherData.classrooms.map((entry) => {
-      
-      ids.push(entry._id);
-      
-      return (<Grid key={entry._id} item>
-        <ClassroomEntry title={entry.name} subheader={entry.created} image={`/assets/img/classrooms/${entry.displayPicture}`} content={entry.description} className={classes.paper} />
-      </Grid>
+
+      return (
+        <Grid key={entry._id} item>
+          <Link to={{ pathname: `/class/${entry._id}` }}>
+            <ClassroomEntry title={entry.name} subheader={entry.created} image={`/assets/img/classrooms/${entry.displayPicture}`} content={entry.description} className={classes.paper} />
+          </Link>
+        </Grid >
       )
     });
 

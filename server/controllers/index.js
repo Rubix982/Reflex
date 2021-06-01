@@ -3,6 +3,8 @@ const { checkForFirstLogin } = require('../services/firstLogin');
 const { postUserInformationForBio } = require('../services/postFirstLogin');
 const { getNavbarInformationFromDatabase } = require('../services/getNavbarInfo');
 const { getClassroomInformation } = require('../services/classroomInformation');
+const { getStudentInformation, postNewStudentRecord } = require('../services/students');
+const { savingAttendanceRecord } = require('../services/record');
 
 module.exports.loginUser = async (req, res) => {
   try {
@@ -46,5 +48,39 @@ module.exports.getClassroomsForTeacher = async (req, res) => {
     return res.status(200).send(data);
   } catch (error) {
     return res.status(500).json({ msg: `Unable to fetch classroom results for teacher due to error "${error.message}"` });
+  }
+};
+
+module.exports.getStudentsForClassroom = async (req, res) => {
+  try {
+    return res.status(200).send({
+      students: await getStudentInformation(req.userHandle, req.params.id),
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: `Unable to fetch students for classroom with id, ${req.body.classID}, due to error "${error.message}"` });
+  }
+};
+
+module.exports.postStudentInformation = async (req, res) => {
+  try {
+    const status = {
+      status: await postNewStudentRecord(req.userHandle, req.body.id, req.body.name,
+        req.body.image),
+    };
+    return res.status(200).send(status);
+  } catch (error) {
+    return res.status(500).json({ msg: `Unable to post students for classroom with the name, "${req.body.name}", and "${req.body.image}", due to error "${error.message}"` });
+  }
+};
+
+module.exports.markNewAttendance = async (req, res) => {
+  try {
+    const data = await savingAttendanceRecord({
+      handle: req.userHandle,
+      ...req.body.markingInformation,
+    });
+    return res.status(200).send(data);
+  } catch (error) {
+    return res.status(500).json({ msg: `Unable to mark attendance for this classroom at the moment, due to error ${error.message}` });
   }
 };

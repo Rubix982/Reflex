@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Material UI imports
 import FormControl from '@material-ui/core/FormControl';
@@ -83,13 +83,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const MarkEntry = () => {
+const MarkEntry = ({ profilePicture, name, attendanceDefaultVal, updateAttendance, setUpdateAttendance, id, entryAttendanceList }) => {
     const classes = useStyles();
-    const [attendance, setAttendance] = React.useState('');
+    const [studentAttendance, setStudentAttendance] = React.useState(attendanceDefaultVal);
+
+    if (studentAttendance != attendanceDefaultVal && updateAttendance) {
+        setUpdateAttendance(false);
+        setStudentAttendance(attendanceDefaultVal);
+    };
 
     const handleChange = (event) => {
-        setAttendance(event.target.value);
+        setStudentAttendance(event.target.value);
     };
+
+    entryAttendanceList[id] = studentAttendance;
 
     return (
         <div className={classes.root}>
@@ -101,27 +108,24 @@ const MarkEntry = () => {
                 <Grid item xs={3}>
                     <Paper className={classes.paper}>
                         <Grid className={classes.fullDim} container direction='row' justify='center' alignItems='center' >
-                            <Avatar alt="Remy Sharp" src="/assets/img/students/boy.svg" />
+                            <Avatar alt={name} src={`/assets/img/students/${profilePicture}`} />
                         </Grid>
                     </Paper>
                 </Grid>
-                <Grid className={classes.entryDetail}  item xs={3}>
+                <Grid className={classes.entryDetail} item xs={3}>
                     <Paper className={classes.paper}>
                         <FormControl variant="outlined" className={classes.formControl}>
                             <InputLabel id="demo-simple-select-outlined-label">Attendance</InputLabel>
                             <Select
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                value={attendance}
+                                value={studentAttendance}
                                 onChange={handleChange}
                                 label="Attendance"
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}><GroupAdd /><span className={`${classes.spacing} ${classes.dropdownStyling}`}>Present</span></MenuItem>
-                                <MenuItem value={20}><RemoveIcon /> <span className={`${classes.spacing} ${classes.dropdownStyling}`}>Absent</span></MenuItem>
-                                <MenuItem value={30}><WatchLaterIcon /> <span className={`${classes.spacing} ${classes.dropdownStyling}`}>Late</span></MenuItem>
+                                <MenuItem onChange={handleChange} value='Present'><GroupAdd /><span className={`${classes.spacing} ${classes.dropdownStyling}`}>Present</span></MenuItem>
+                                <MenuItem onChange={handleChange} value='Absent'><RemoveIcon /> <span className={`${classes.spacing} ${classes.dropdownStyling}`}>Absent</span></MenuItem>
+                                <MenuItem onChange={handleChange} value='Late'><WatchLaterIcon /> <span className={`${classes.spacing} ${classes.dropdownStyling}`}>Late</span></MenuItem>
                             </Select>
                         </FormControl>
                     </Paper>
@@ -129,7 +133,7 @@ const MarkEntry = () => {
                 <Grid className={classes.entryDetail} item xs={3}>
                     <Paper className={classes.paper}>
                         <span className={`${classes.name} ${classes.fullDim}`}>
-                            Saif Ul Islam
+                            {name}
                         </span>
                     </Paper>
                 </Grid>
