@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const PeopleRecord = new Schema({
-  _id: {
+  teacher_handler: {
     type: String,
     maxlength: 40,
     required: true,
@@ -19,6 +19,12 @@ const PeopleRecord = new Schema({
     required: true,
     maxlength: 150,
     default: false,
+  },
+  profilePicture: {
+    type: String,
+    required: true,
+    maxLength: 15,
+    default: 'boy(4).svg',
   },
 });
 

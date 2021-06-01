@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
 import {
     Button,
     TextField,
@@ -20,6 +16,8 @@ import {
 // Local imports
 import PeopleEntry from './PeopleEntry';
 
+// Local service
+import { postStudents, getStudents } from './../../services/students';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -132,10 +130,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const People = () => {
+const People = ({ id }) => {
     // The first commit of Material-UI
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [receivedInput, setReceivedInput] = React.useState(false);
+    const [studentData, setStudentData] = React.useState({});
+    const name = useRef('');
+    const image = useRef('')
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -145,9 +147,60 @@ const People = () => {
         setOpen(false);
     };
 
+    useEffect(async () => {
+        if (receivedInput == true) {
+            try {
+                const { status } = await postStudents(id, name.current.value, image.current.value);
+                console.log(status);
 
-    return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                setReceivedInput(false);
+            } catch (error) {
+                console.log(error);
+                alert('Unable to store new student!');
+            }
+        }
+
+        if (Object.entries(studentData).length === 0) {
+            try {
+                setStudentData(await getStudents(id));
+            } catch (error) {
+                console.log(error);
+                alert('Unable to fetch students');
+            };
+        };
+    });
+
+    const addStudentToRecord = () => {
+        handleClose(false);
+        setReceivedInput(true);
+    };
+
+    if (Object.entries(studentData).length === 0) {
+        return (
+            <>
+            </>
+        );
+    } else {
+
+        const numberList = []
+
+        for (var i = 0; i < studentData.students.length; ++i) {
+            numberList.push(i);
+        }
+
+        studentData.students.forEach((entry, index) => {
+            entry['id'] = index
+        });
+
+        const CompleteStudentRecords = studentData.students.map((entry) => {
+            return (
+                <Grid key={entry.id} item>
+                    <PeopleEntry profilePicture={entry.profilePicture} name={entry.name} />
+                </Grid>
+            );
+        });
+
+        return (
             <Grid container className={classes.studentInfoContainer}>
                 <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
                     <Grid container>
@@ -179,23 +232,24 @@ const People = () => {
                                                 label="Name"
                                                 type="email"
                                                 fullWidth
+                                                inputRef={name}
                                             />
                                             <TextField
-                                                autoFocus
                                                 margin="dense"
-                                                id="name"
+                                                id="image"
                                                 label="Image"
                                                 type="email"
                                                 fullWidth
+                                                inputRef={image}
                                             />
                                         </DialogContent>
                                         <DialogActions>
                                             <Button onClick={handleClose} color="primary">
                                                 Cancel
                                             </Button>
-                                            <Button onClick={handleClose} color="primary">
+                                            <Button onClick={addStudentToRecord} color="primary">
                                                 Add
-                                            </Button>
+                                        </Button>
                                         </DialogActions>
                                     </Dialog>
                                 </div>
@@ -203,20 +257,12 @@ const People = () => {
                         </Grid>
                     </Grid>
                     <Grid className={classes.studentContainerBody} item xs={12}>
-                        <Grid item>
-                            <PeopleEntry />
-                        </Grid>
-                        <Grid item>
-                            <PeopleEntry />
-                        </Grid>
-                        <Grid item>
-                            <PeopleEntry />
-                        </Grid>
+                        {CompleteStudentRecords}
                     </Grid>
                 </Grid>
             </Grid>
-        </MuiPickersUtilsProvider>
-    );
+        );
+    }
 };
 
 export default People;

@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ViewEntry = () => {
+const PeopleEntry = ({ profilePicture, name }) => {
     const classes = useStyles();
 
     return (
@@ -69,14 +69,14 @@ const ViewEntry = () => {
                 <Grid item xs={3}>
                     <Paper className={classes.paper}>
                         <Grid className={classes.fullDim} container direction='row' justify='center' alignItems='center' >
-                            <Avatar alt="Remy Sharp" src="/assets/img/students/boy.svg" />
+                            <Avatar alt={name} src={`/assets/img/students/${profilePicture}`} />
                         </Grid>
                     </Paper>
                 </Grid>
                 <Grid className={classes.entryDetail} item xs={3}>
                     <Paper className={classes.paper}>
                         <span className={`${classes.name} ${classes.fullDim}`}>
-                            Saif Ul Islam
+                            {name}
                         </span>
                     </Paper>
                 </Grid>
@@ -85,4 +85,4 @@ const ViewEntry = () => {
     );
 };
 
-export default ViewEntry;
+export default PeopleEntry;

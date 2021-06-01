@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 const MainContent = () => {
     const classes = useStyles();
     const [option, setOption] = useState(1);
-    const [selectedOption, setSelectedOption] = useState(<Attendance />);
 
     let { id } = useParams();
 
@@ -52,7 +51,7 @@ const MainContent = () => {
                 </Grid>
                 <Grid width={1} item xs={6} sm={10}>
                     <Paper className={classes.paper}>
-                        {option == 2 ? <People /> : option == 1 ? <Attendance setOption={setOption} /> : option == 3 ? <View /> : <Mark />}
+                        {option == 2 ? <People id={id} /> : option == 1 ? <Attendance setOption={setOption} /> : option == 3 ? <View id={id} /> : <Mark id={id} />}
                     </Paper>
                 </Grid>
             </Grid>
