@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ClassroomEntry = () => {
+const ClassroomEntry = ({ description, displayPicture, name }) => {
     const classes = useStyles();
 
     return (
@@ -67,7 +67,7 @@ const ClassroomEntry = () => {
                 <Grid item xs={3}>
                     <Paper className={classes.paper}>
                         <Grid className={classes.fullDim} container direction='row' justify='center' alignItems='center' >
-                            <Avatar alt="Remy Sharp" src="/assets/img/students/boy.svg" />
+                            <Avatar alt={name} src={`/assets/img/classrooms/${displayPicture}`} />
                         </Grid>
                     </Paper>
                 </Grid>
@@ -76,12 +76,12 @@ const ClassroomEntry = () => {
                         <Grid container direction='column' justify='flex-start' alignItems='flex-start'>
                             <Grid item>
                                 <span className={`${classes.name} ${classes.fullDim}`}>
-                                    Artificial Intelligence
+                                    {name}
                                 </span>
                             </Grid>
                             <Grid item>
                                 <span>
-                                    Lorem ipsum dolor sit amet,
+                                    {description === undefined ? '' : description.length > 40 ? description.substr(0, 40) : description}
                                 </span>
                             </Grid>
                         </Grid>

@@ -1,12 +1,7 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Material UI imports
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
 import {
     Button,
     TextField,
@@ -15,10 +10,15 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Grid,
+    makeStyles,
 } from '@material-ui/core';
 
 // Local imports
 import ClassroomEntry from './ClassroomEntry';
+
+// Local Services
+import { getClassrooms, postClassroom } from './../../services/classrooms';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -133,6 +133,11 @@ const Classroom = () => {
     // The first commit of Material-UI
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [receivedInput, setReceivedInput] = React.useState(false);
+    const [classroomData, setClassroomData] = React.useState({});
+    const name = useRef('');
+    const description = useRef('');
+    const image = useRef('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -142,9 +147,44 @@ const Classroom = () => {
         setOpen(false);
     };
 
+    const addClassroomToRecord = () => {
+        handleClose(false);
+        setReceivedInput(true);
+    };
 
-    return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    useEffect(async () => {
+        if (receivedInput == true) {
+            try {
+                await postClassroom({
+                    name: name.current.value,
+                    description: description.current.value,
+                    image: image.current.value
+                });
+
+                setReceivedInput(false);
+            } catch (error) {
+                console.log(error);
+                alert('Unable to store new classroom!');
+            }
+        }
+
+        if (Object.entries(classroomData).length === 0) {
+            try {
+                setClassroomData(await getClassrooms());
+            } catch (error) {
+                console.log(error);
+                alert('Unable to fetch classrooms');
+            };
+        };
+    });
+
+    if (Object.entries(classroomData).length === 0) {
+        return (
+            <>
+            </>
+        );
+    } else {
+        return (
             <Grid container className={classes.studentInfoContainer}>
                 <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
                     <Grid container>
@@ -163,7 +203,7 @@ const Classroom = () => {
                                         + Classroom
                                     </Button>
                                     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                                        <DialogTitle id="form-dialog-title">Adding A New Student</DialogTitle>
+                                        <DialogTitle id="form-dialog-title">Adding A New Classroom</DialogTitle>
                                         <DialogContent>
                                             <DialogContentText>
                                                 To create a new class, please fill in the form below.
@@ -176,29 +216,32 @@ const Classroom = () => {
                                                 label="Name"
                                                 type="email"
                                                 fullWidth
+                                                inputRef={name}
                                             />
                                             <TextField
                                                 autoFocus
                                                 margin="dense"
-                                                id="name"
+                                                id="description"
                                                 label="Description"
                                                 type="email"
                                                 fullWidth
-                                            />                                            
+                                                inputRef={description}
+                                            />
                                             <TextField
                                                 autoFocus
                                                 margin="dense"
-                                                id="name"
+                                                id="image"
                                                 label="Image"
                                                 type="email"
                                                 fullWidth
+                                                inputRef={image}
                                             />
                                         </DialogContent>
                                         <DialogActions>
                                             <Button onClick={handleClose} color="primary">
                                                 Cancel
                                             </Button>
-                                            <Button onClick={handleClose} color="primary">
+                                            <Button onClick={addClassroomToRecord} color="primary">
                                                 Add
                                             </Button>
                                         </DialogActions>
@@ -208,20 +251,20 @@ const Classroom = () => {
                         </Grid>
                     </Grid>
                     <Grid className={classes.studentContainerBody} item xs={12}>
-                    <Grid item>
-                            <ClassroomEntry />
-                        </Grid>
-                        <Grid item>
-                            <ClassroomEntry />
-                        </Grid>
-                        <Grid item>
-                            <ClassroomEntry />
-                        </Grid>
+                        {classroomData.classrooms.map((entry) => {
+                            return (
+                                <Grid key={entry._id} item>
+                                    <Link to={{ pathname: `/class/${entry._id}` }}>
+                                    <ClassroomEntry description={entry.description} displayPicture={entry.displayPicture} name={entry.name} />
+                                    </Link>
+                                </Grid>
+                            );
+                        })}
                     </Grid>
-                </Grid>
             </Grid>
-        </MuiPickersUtilsProvider>
-    );
+            </Grid >
+        );
+    };
 };
 
 export default Classroom;

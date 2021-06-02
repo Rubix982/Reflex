@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { loginUserContext } from '../LoginUserContext';
 
 // the div is for navbar
@@ -187,16 +188,18 @@ const MainContent = () => {
                   <ExitToAppRoundedIcon onClick={logUserOut} />
                 </Badge>
               </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              <Link to='/profile'>
+                <IconButton
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Link>
             </div>
             <div className={classes.sectionMobile}>
               <IconButton

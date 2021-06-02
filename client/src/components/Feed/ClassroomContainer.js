@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 // Local imports
 import ClassroomEntry from './ClassroomEntry';
-import { getClassroomsForTeacher } from '../../services/classrooms';
+import { getClassrooms } from '../../services/classrooms';
 
 // Material UI Imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,7 +38,7 @@ const ClassroomContainer = () => {
   useEffect(async () => {
     if (Object.entries(teacherData).length === 0) {
       try {
-        const data = await getClassroomsForTeacher();
+        const data = await getClassrooms();
         setTeacherData(data);
       } catch (err) {
         alert('Unable to fetch classrooms!');

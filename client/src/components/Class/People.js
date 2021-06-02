@@ -150,9 +150,7 @@ const People = ({ id }) => {
     useEffect(async () => {
         if (receivedInput == true) {
             try {
-                const { status } = await postStudents(id, name.current.value, image.current.value);
-                console.log(status);
-
+                await postStudents(id, name.current.value, image.current.value);
                 setReceivedInput(false);
             } catch (error) {
                 console.log(error);

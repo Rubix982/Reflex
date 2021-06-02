@@ -2,7 +2,7 @@ const { generateAccessToken } = require('../services/auth');
 const { checkForFirstLogin } = require('../services/firstLogin');
 const { postUserInformationForBio } = require('../services/postFirstLogin');
 const { getNavbarInformationFromDatabase } = require('../services/getNavbarInfo');
-const { getClassroomInformation } = require('../services/classroomInformation');
+const { getClassrooms, postClassroom } = require('../services/classrooms');
 const { getStudentInformation, postNewStudentRecord } = require('../services/students');
 const { savingAttendanceRecord, viewAttendanceForRecord } = require('../services/record');
 
@@ -36,18 +36,26 @@ module.exports.getNavbarInformation = async (req, res) => {
     };
     return res.status(200).send(data);
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to fetch navbar information due to error "${error.message}"` });
+    return res.status(500).json({
+      msg: `Unable to fetch 
+    navbar information due to 
+    error "${error.message}"`,
+    });
   }
 };
 
 module.exports.getClassroomsForTeacher = async (req, res) => {
   try {
     const data = {
-      classrooms: await getClassroomInformation(req.userHandle),
+      classrooms: await getClassrooms(req.userHandle),
     };
     return res.status(200).send(data);
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to fetch classroom results for teacher due to error "${error.message}"` });
+    return res.status(500).json({
+      msg: `Unable to fetch 
+    classroom results for teacher 
+    due to error "${error.message}"`,
+    });
   }
 };
 
@@ -57,7 +65,11 @@ module.exports.getStudentsForClassroom = async (req, res) => {
       students: await getStudentInformation(req.userHandle, req.params.id),
     });
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to fetch students for classroom with id, ${req.body.classID}, due to error "${error.message}"` });
+    return res.status(500).json({
+      msg: `Unable to fetch students 
+    for classroom with id, ${req.body.classID}, 
+    due to error "${error.message}"`,
+    });
   }
 };
 
@@ -69,7 +81,12 @@ module.exports.postStudentInformation = async (req, res) => {
     };
     return res.status(200).send(status);
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to post students for classroom with the name, "${req.body.name}", and "${req.body.image}", due to error "${error.message}"` });
+    return res.status(500).json({
+      msg: `Unable to post students for 
+    classroom with the name, "${req.body.name}", 
+    and "${req.body.image}", due to 
+    error "${error.message}"`,
+    });
   }
 };
 
@@ -80,7 +97,11 @@ module.exports.markNewAttendance = async (req, res) => {
       ...req.body.markingInformation,
     }));
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to mark attendance for this classroom at the moment, due to error ${error.message}` });
+    return res.status(500).json({
+      msg: `Unable to mark attendance 
+    for this classroom at the moment, due 
+    to error ${error.message}`,
+    });
   }
 };
 
@@ -92,6 +113,25 @@ module.exports.viewAttendance = async (req, res) => {
       date: String(req.params.date).split('-').join(' '),
     }));
   } catch (error) {
-    return res.status(500).json({ msg: `Unable to view attendance for this classroom at the moment, due to error ${error.message}` });
+    return res.status(500).json({
+      msg: `Unable to view attendance 
+    for this classroom at the moment, due to 
+    error ${error.message}`,
+    });
+  }
+};
+
+module.exports.postClassroomInformation = async (req, res) => {
+  try {
+    return res.status(200).send(await postClassroom({
+      ...req.body,
+      handle: req.userHandle,
+    }));
+  } catch (error) {
+    return res.status(500).json({
+      msg: `Unable to post new classroom
+  information at the moment, due to 
+  error "${error.message}"`,
+    });
   }
 };

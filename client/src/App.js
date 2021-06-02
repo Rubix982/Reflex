@@ -27,7 +27,7 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/first' component={FirstLogin} />
               <Route path='/class/:id' component={Class} />
-              <Route exact path='/profile/:id' component={Profile} />
+              <Route exact path='/profile' component={Profile} />
               <Route component={Error404} />
             </Switch>
           </Router>

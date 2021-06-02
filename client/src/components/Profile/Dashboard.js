@@ -25,7 +25,7 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Grid className={classes.spacing} container direction='row' justify='space-between' alignItems='stretch' spacing={12}>
+            <Grid className={classes.spacing} container direction='row' justify='space-between' alignItems='stretch' spacing={3}>
                 <Grid item xs={12}>
                     <Grid container direction='row' justify='space-between' alignItems='stretch' spacing={2}>
                         <Grid item>

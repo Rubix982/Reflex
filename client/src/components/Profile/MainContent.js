@@ -38,8 +38,6 @@ const MainContent = () => {
     const classes = useStyles();
     const [option, setOption] = useState(1);
 
-    let { id } = useParams();
-
     return (
         <div className={classes.root}>
             <Grid container>
