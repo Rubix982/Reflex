@@ -12,7 +12,10 @@ import {
     DialogTitle,
     Grid,
     makeStyles,
+    Snackbar,
 } from '@material-ui/core';
+
+import MuiAlert from '@material-ui/lab/Alert';
 
 // Local imports
 import ClassroomEntry from './ClassroomEntry';
@@ -20,9 +23,17 @@ import ClassroomEntry from './ClassroomEntry';
 // Local Services
 import { getClassrooms, postClassroom } from './../../services/classrooms';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
     },
     paper: {
         padding: theme.spacing(2),
@@ -135,6 +146,8 @@ const Classroom = () => {
     const [open, setOpen] = React.useState(false);
     const [receivedInput, setReceivedInput] = React.useState(false);
     const [classroomData, setClassroomData] = React.useState({});
+    const [openSnackBarError, setOpenSnackBarError] = React.useState(false);
+    const [openSnackBarSuccess, setOpenSnackBarSuccess] = React.useState(false);
     const name = useRef('');
     const description = useRef('');
     const image = useRef('');
@@ -146,6 +159,14 @@ const Classroom = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleCloseErrorSnack = () => {
+        setOpenSnackBarError(false);
+    };
+
+    const handleCloseSuccessSnack = () => {
+        setOpenSnackBarSuccess(false);
+    }
 
     const addClassroomToRecord = () => {
         handleClose(false);
@@ -162,9 +183,10 @@ const Classroom = () => {
                 });
 
                 setReceivedInput(false);
+                setOpenSnackBarSuccess(true);
             } catch (error) {
                 console.log(error);
-                alert('Unable to store new classroom!');
+                setOpenSnackBarError(true);
             }
         }
 
@@ -186,6 +208,30 @@ const Classroom = () => {
     } else {
         return (
             <Grid container className={classes.studentInfoContainer}>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={4000}
+                    open={openSnackBarError}
+                    onClose={handleCloseErrorSnack}
+                    message="Attendance being marked on same date - error"
+                    key={'top center error'}
+                >
+                    <Alert className={classes.alertMsg} onClose={handleCloseErrorSnack} severity="error">
+                        Classroom could not be added!
+                    </Alert>
+                </Snackbar>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={4000}
+                    open={openSnackBarSuccess}
+                    onClose={handleCloseSuccessSnack}
+                    message="Attendance successfully marked"
+                    key={'top center success'}
+                >
+                    <Alert className={classes.alertMsg} onClose={handleCloseSuccessSnack} severity="success">
+                        Success! Classroom added
+                    </Alert>
+                </Snackbar>
                 <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
                     <Grid container>
                         <Grid container direction="column"
@@ -255,13 +301,13 @@ const Classroom = () => {
                             return (
                                 <Grid key={entry._id} item>
                                     <Link to={{ pathname: `/class/${entry._id}` }}>
-                                    <ClassroomEntry description={entry.description} displayPicture={entry.displayPicture} name={entry.name} />
+                                        <ClassroomEntry description={entry.description} displayPicture={entry.displayPicture} name={entry.name} />
                                     </Link>
                                 </Grid>
                             );
                         })}
                     </Grid>
-            </Grid>
+                </Grid>
             </Grid >
         );
     };
