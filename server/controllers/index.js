@@ -5,7 +5,7 @@ const { getNavbarInformationFromDatabase } = require('../services/getNavbarInfo'
 const { getClassrooms, postClassroom } = require('../services/classrooms');
 const { getStudentInformation, postNewStudentRecord } = require('../services/students');
 const { savingAttendanceRecord, viewAttendanceForRecord } = require('../services/record');
-const { getTeacherRecord } = require('../services/teacher');
+const { getTeacherRecord, changeTeacherPasword } = require('../services/teacher');
 
 module.exports.loginUser = async (req, res) => {
   try {
@@ -141,6 +141,23 @@ module.exports.getTeacher = async (req, res) => {
   try {
     return res.status(200).send(await
     getTeacherRecord(req.userHandle));
+  } catch (error) {
+    return res.status(500).json({
+      msg: `Unable to get teacher 
+      information at the moment, due
+       to error "${error.message}"`,
+    });
+  }
+};
+
+module.exports.changePassword = async (req, res) => {
+  try {
+    return res.status(200).send(await changeTeacherPasword({
+      oldPassword: req.body.oldPassword,
+      newPassword: req.body.newPassword,
+      confirmPassword: req.body.confirmPassword,
+      handle: req.userHandle,
+    }));
   } catch (error) {
     return res.status(500).json({
       msg: `Unable to get teacher 
