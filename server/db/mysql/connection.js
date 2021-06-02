@@ -2,8 +2,8 @@ const MYSQL = require('mysql2/promise');
 require('dotenv').config();
 
 const connection = MYSQL.createPool({
-  host: 'mysql',
-  user: 'root',
+  host: `${process.env.HOST}`,
+  user: `${process.env.USER}`,
   password: `${process.env.PASSWORD}`,
   multipleStatements: true,
   waitForConnections: true,

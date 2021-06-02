@@ -20,12 +20,6 @@ const verifyUserCredentials = async ({ email: __email, password: __password }) =
   const passwordFromDatabase = result[0].Password;
   let compare;
 
-  console.log(passwordFromDatabase, __password);
-
-  bcrypt.hash(__password, 12, (err, hash) => {
-    console.log(err, hash);
-  });
-
   // Compare both with bcrypt
   try {
     compare = await bcrypt.compare(__password, passwordFromDatabase);
