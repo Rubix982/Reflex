@@ -64,12 +64,14 @@ const ViewEntry = ({ id, list, name, profilePicture, update, setUpdate }) => {
     const [attendance, setAttendance] = React.useState([]);
 
     useEffect(async () => {
-        if (list.length === 0) {
-            setAttendance('null');
-        } else {
-            setAttendance(list[id]);
+        if (list !== undefined) {
+            if (list.length === 0) {
+                setAttendance('null');
+            } else {
+                setAttendance(list[id]);
+            }
+            setUpdate(false);
         }
-        setUpdate(false);
     }, [update, list]);
 
     return (
