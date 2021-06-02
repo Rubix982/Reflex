@@ -1,9 +1,14 @@
 import React from 'react';
 
 // Material UI imports
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
+import { makeStyles, Snackbar, Grid, Avatar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+
+import { getProfile } from './../../services/teacher';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         width: '245px',
         height: '245px',
-        border: '2.5px solid #000000',
+        border: '0.5px solid #000000',
         boxShadow: '0px 0px 10px 4px rgba(0, 0, 0, 0.25)',
         margin: '10px',
     },
@@ -61,45 +66,84 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '18px',
         lineHeight: '28px',
         textAalign: 'center',
-        color: '#000000',        
+        color: '#000000',
     }
 }));
 
 const Profile = () => {
     // The first commit of Material-UI
     const classes = useStyles();
+    const [data, setData] = React.useState({});
+    const [dataLoaded, setDataLoaded] = React.useState(false);
+    const [snackBar, setSnackBar] = React.useState(false);
 
-    return (
-        <div className={classes.root}>
-            <Grid container className={classes.studentInfoContainer}>
-                <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
-                    <Grid container>
-                        <Grid container direction="row"
-                            justify="space-between"
-                            alignItems="stretch"
-                            className={`${classes.studentContainerHeader}`}>
-                            <Grid item xs={12}>
-                                <div className={`${classes.studentContainerHeaderText}`}>
-                                    Profile
+    React.useEffect(async () => {
+        try {
+            setData(await getProfile());
+            setDataLoaded(true);
+        } catch (error) {
+            console.log(error);
+            setSnackBar(true);
+        };
+    }, []);
+
+    const handleSnackBar = () => {
+        setSnackBar(false);
+    };
+
+    if (!dataLoaded) {
+        return (
+            <>
+            </>
+        )
+    } else {
+
+        console.log(data);
+
+        return (
+            <div className={classes.root}>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={4000}
+                    open={snackBar}
+                    onClose={handleSnackBar}
+                    message="Unable to load profile information - error"
+                    key={'top center error'}
+                >
+                    <Alert onClose={handleSnackBar} severity="error">
+                        Profile could not be loaded!
+                    </Alert>
+                </Snackbar>
+                <Grid container className={classes.studentInfoContainer}>
+                    <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
+                        <Grid container>
+                            <Grid container direction="row"
+                                justify="space-between"
+                                alignItems="stretch"
+                                className={`${classes.studentContainerHeader}`}>
+                                <Grid item xs={12}>
+                                    <div className={`${classes.studentContainerHeaderText}`}>
+                                        {data.UserName}
+                                </div>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid className={classes.studentContainerBody} item xs={12}>
+                            <Grid container direction='column' justify='center' alignItems='center'>
+                                <Avatar className={classes.avatar} alt={data.UserName} src={`/assets/img/students/${data.ProfilePicture}`} />
+
+                                <div className={classes.biography}>
+                                    <p>
+                                        {data.Biography}
+                                    </p>
                                 </div>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid className={classes.studentContainerBody} item xs={12}>
-                        <Grid container direction='column' justify='center' alignItems='center'>
-                            <Avatar className={classes.avatar} alt="Remy Sharp" src="/assets/img/classrooms/10.jpg" />
-
-                            <div className={classes.biography}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit molestie elementum, eleifend ultrices fermentum nisi. Fringilla ipsum diam nunc sed egestas urna consectetur a nulla. Eu in nibh egestas tristique ut quisque porttitor. Magna a pretium ultricies bibendum sit odio sodales feugiat orci. At risus nunc amet tempus lectus ante lacus molestie. Tellus, urna, id elit dapibus ipsum elementum faucibus. Ipsum non senectus viverra blandit blandit etiam tellus pharetra. Sit ipsum arcu, a a enim nunc orci. Vel elit euismod iaculis nisl venenatis magna libero.
-                                </p>
-                            </div>
-                        </Grid>
-                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
-    );
+            </div>
+        );
+    }
 };
 
 export default Profile;

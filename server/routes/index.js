@@ -13,5 +13,6 @@ Router.get('/attendance/:id/:date', authorizeUser, indexContoller.viewAttendance
 Router.get('/navbar', authorizeUser, indexContoller.getNavbarInformation);
 Router.get('/classrooms', authorizeUser, indexContoller.getClassroomsForTeacher);
 Router.get('/people/:id', authorizeUser, indexContoller.getStudentsForClassroom);
+Router.get('/teacher', authorizeUser, indexContoller.getTeacher);
 
 module.exports = Router;
