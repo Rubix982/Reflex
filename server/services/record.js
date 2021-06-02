@@ -26,4 +26,19 @@ const savingAttendanceRecord = async (recordData) => {
   }
 };
 
+const viewAttendanceForRecord = async ({ handle, classId, date }) => {
+  try {
+    const result = await Attendance.find({
+      teacher_handler: handle,
+      course_id: String(classId),
+      date: String(date),
+    });
+
+    return result;
+  } catch (error) {
+    throw new Error(`Unable to fetch from MongoDB due to the error, ${error.message}`);
+  }
+};
+
+module.exports.viewAttendanceForRecord = viewAttendanceForRecord;
 module.exports.savingAttendanceRecord = savingAttendanceRecord;

@@ -8,6 +8,7 @@ Router.post('/login', indexContoller.loginUser);
 Router.post('/first', authorizeUser, indexContoller.postFirstLoginInformation);
 Router.post('/people', authorizeUser, indexContoller.postStudentInformation);
 Router.post('/attendance', authorizeUser, indexContoller.markNewAttendance);
+Router.get('/attendance/:id/:date', authorizeUser, indexContoller.viewAttendance);
 Router.get('/navbar', authorizeUser, indexContoller.getNavbarInformation);
 Router.get('/classrooms', authorizeUser, indexContoller.getClassroomsForTeacher);
 Router.get('/people/:id', authorizeUser, indexContoller.getStudentsForClassroom);

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Material UI imports
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles, Snackbar, Grid } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -11,6 +11,14 @@ import {
 
 // Local imports
 import ViewEntry from './ViewEntry';
+
+// Local Service
+import { getStudents } from './../../services/students';
+import { getStudentAttendance } from './../../services/record';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
         boxSizing: 'border-box',
         boxShadow: '0px 0px 2px 1px rgba(0, 0, 0, 0.25)',
         borderRadius: '20px 20px 0px 0px',
-        margin: 'auto',   
+        margin: 'auto',
     },
     studentContainerHeaderText: {
         fontFamily: 'Roboto',
@@ -90,72 +98,155 @@ const useStyles = makeStyles((theme) => ({
     studentContainerBody: {
         width: '100%',
         height: '754px',
-        margin: 'auto', 
+        margin: 'auto',
         border: '1px solid rgba(0, 0, 0, 0.38)',
         boxSizing: 'border-box',
-        borderRadius: '0px 0px 20px 20px',                       
+        borderRadius: '0px 0px 20px 20px',
     },
     topHeader: {
         marginBottom: '50px',
     },
 }));
 
-const View = () => {
+const View = ({ id }) => {
     // The first commit of Material-UI
+    // const defaultDate = '2020-01-01T21:11:54'
     const classes = useStyles();
+    const [studentData, setStudentData] = React.useState({});
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [attendanceList, setAttendanceList] = React.useState([]);
+    const [newUpdate, setNewUpdate] = React.useState(false);
+    const [openSnackBarError, setOpenSnackBarError] = React.useState(false);
+    const [asyncUpdate, setAsyncUpdate] = React.useState({
+        update: false,
+        date: new Date(),
+    });
+    const numberList = []
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleCloseErrorSnack = () => {
+        setOpenSnackBarError(false);
     };
 
-    return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container className={classes.studentInfoContainer}>
-                <Grid className={classes.topHeader} item xs={12}>
-                    <Grid container justify="space-around">
-                        <KeyboardDatePicker
-                            maxDate={new Date()}
-                            margin="normal"
-                            id="date-picker-dialog"
-                            label="Date picker dialog"
-                            format="MM/dd/yyyy"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                        />
+    const handleDateChange = (date) => {
+        setAsyncUpdate({
+            update: true,
+            date,
+        });
+        setNewUpdate(true);
+    };
+
+    useEffect(async () => {
+        if (Object.entries(studentData).length === 0) {
+            try {
+                setStudentData(await getStudents(id));
+                const data = await getStudentAttendance(id, `${String(selectedDate).split(' ').slice(1, 4).join('-')}`);
+
+                if (data.length === 0) {
+                    setAttendanceList(data);
+                }
+                else {
+                    setAttendanceList(data.presence);
+                }
+
+            } catch (error) {
+                console.log(error);
+                alert('Unable to fetch students');
+            };
+        };
+
+        if (asyncUpdate.update) {
+            setSelectedDate(asyncUpdate.date);
+            const data = await getStudentAttendance(id, `${String(asyncUpdate.date).split(' ').slice(1, 4).join('-')}`);
+
+            if (data.length === 0) {
+                setAttendanceList(data);
+                setOpenSnackBarError(true);
+            }
+            else {
+                setAttendanceList(data[0].presence);
+            }
+            setAsyncUpdate(({
+                update: false,
+                date: asyncUpdate.date,
+            }));
+        }
+
+    }, [asyncUpdate]);
+
+    if (Object.entries(studentData).length === 0) {
+        return (
+            <>
+            </>
+        );
+    } else {
+
+        for (var i = 0; i < studentData.students.length; ++i) {
+            numberList.push(i);
+        }
+
+        studentData.students.forEach((entry, index) => {
+            entry['id'] = index;
+        });
+
+        return (
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={4000}
+                    open={openSnackBarError}
+                    onClose={handleCloseErrorSnack}
+                    message="Attendance being marked on same date - error"
+                    key={'top center error'}
+                >
+                    <Alert className={classes.alertMsg} onClose={handleCloseErrorSnack} severity="error">
+                        No attendance record found for this date!
+                    </Alert>
+                </Snackbar>
+                <Grid container className={classes.studentInfoContainer}>
+                    <Grid className={classes.topHeader} item xs={12}>
+                        <Grid container justify="space-around">
+                            <KeyboardDatePicker
+                                maxDate={new Date()}
+                                margin="normal"
+                                id="date-picker-dialog"
+                                label="Date picker dialog"
+                                format="dd/MM/yyyy"
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
-                    <Grid container>
-                        <Grid container direction="row"
-                            justify="flex-start"
-                            alignItems="flex-start">
-                            <Grid className={`${classes.studentContainerHeader}`} item xs={12}>
-                                <div className={classes.studentContainerHeaderText}>
-                                    Students
-                                </div>
+                    <Grid direction='column' justify='center' alignItems='center' className={classes.studentContainer} container >
+                        <Grid container>
+                            <Grid container direction="row"
+                                justify="flex-start"
+                                alignItems="flex-start">
+                                <Grid className={`${classes.studentContainerHeader}`} item xs={12}>
+                                    <div className={classes.studentContainerHeaderText}>
+                                        Students
+                                    </div>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid container justify="center" alignItems="center" direction='column'>
+                            <Grid className={classes.studentContainerBody} item xs={12}>
+                                {studentData.students.map((entry) => {
+                                    return (
+                                        <Grid key={entry.id} item>
+                                            <ViewEntry id={entry.id} list={attendanceList} profilePicture={entry.profilePicture} name={entry.name} update={newUpdate} setUpdate={setNewUpdate} />
+                                        </Grid>
+                                    );
+                                })}
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid className={classes.studentContainerBody} item xs={12}>
-                        <Grid item>
-                            <ViewEntry />
-                        </Grid>
-                        <Grid item>
-                            <ViewEntry />
-                        </Grid>
-                        <Grid item>
-                            <ViewEntry />
-                        </Grid>
-                    </Grid>
                 </Grid>
-            </Grid>
-        </MuiPickersUtilsProvider>
-    );
+            </MuiPickersUtilsProvider>
+        );
+    };
 };
 
 export default View;

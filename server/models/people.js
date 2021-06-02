@@ -7,7 +7,6 @@ const PeopleRecord = new Schema({
     type: String,
     maxlength: 40,
     required: true,
-    unique: true,
   },
   course_id: {
     type: String,

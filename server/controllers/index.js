@@ -4,7 +4,7 @@ const { postUserInformationForBio } = require('../services/postFirstLogin');
 const { getNavbarInformationFromDatabase } = require('../services/getNavbarInfo');
 const { getClassroomInformation } = require('../services/classroomInformation');
 const { getStudentInformation, postNewStudentRecord } = require('../services/students');
-const { savingAttendanceRecord } = require('../services/record');
+const { savingAttendanceRecord, viewAttendanceForRecord } = require('../services/record');
 
 module.exports.loginUser = async (req, res) => {
   try {
@@ -75,12 +75,23 @@ module.exports.postStudentInformation = async (req, res) => {
 
 module.exports.markNewAttendance = async (req, res) => {
   try {
-    const data = await savingAttendanceRecord({
+    return res.status(200).send(await savingAttendanceRecord({
       handle: req.userHandle,
       ...req.body.markingInformation,
-    });
-    return res.status(200).send(data);
+    }));
   } catch (error) {
     return res.status(500).json({ msg: `Unable to mark attendance for this classroom at the moment, due to error ${error.message}` });
+  }
+};
+
+module.exports.viewAttendance = async (req, res) => {
+  try {
+    return res.status(200).send(await viewAttendanceForRecord({
+      handle: req.userHandle,
+      classId: req.params.id,
+      date: String(req.params.date).split('-').join(' '),
+    }));
+  } catch (error) {
+    return res.status(500).json({ msg: `Unable to view attendance for this classroom at the moment, due to error ${error.message}` });
   }
 };

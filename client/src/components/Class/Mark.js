@@ -23,7 +23,7 @@ import MarkEntry from './MarkEntry';
 
 // Local Service
 import { getStudents } from './../../services/students';
-import { markAttendance } from './../../services/marking';
+import { markAttendance } from './../../services/record';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -127,7 +127,7 @@ const Mark = ({ id }) => {
     const [canUpdateAttendance, setCanUpdateAttendance] = React.useState(false);
     const [attendance, setAttendance] = React.useState('Absent');
     const [studentData, setStudentData] = React.useState({});
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2020-01-01T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [openSnackBarError, setOpenSnackBarError] = React.useState(false);
     const [openSnackBarSuccess, setOpenSnackBarSuccess] = React.useState(false);    
     const numberList = []
@@ -154,7 +154,7 @@ const Mark = ({ id }) => {
         try {
             await markAttendance({
                 course_id: id,
-                date: String(selectedDate).split(' ').slice(0, 6).join(' ') + " PST",
+                date: String(selectedDate).split(' ').slice(1, 4).join(' '),
                 presence: tempAttendanceList,
                 names: studentData.students.map(entry => entry.name),
             });

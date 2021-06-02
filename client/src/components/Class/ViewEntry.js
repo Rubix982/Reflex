@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Material UI imports
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +8,9 @@ import Grid from '@material-ui/core/Grid';
 
 // Icons
 import DoneAllOutlinedIcon from '@material-ui/icons/DoneAllOutlined';
+import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
+import WarningOutlinedIcon from '@material-ui/icons/WarningOutlined';
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     paper: {
-        // padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
         boxShadow: 'none',
@@ -57,8 +59,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ViewEntry = () => {
+const ViewEntry = ({ id, list, name, profilePicture, update, setUpdate }) => {
     const classes = useStyles();
+    const [attendance, setAttendance] = React.useState([]);
+
+    useEffect(async () => {
+        if (list.length === 0) {
+            setAttendance('null');
+        } else {
+            setAttendance(list[id]);
+        }
+        setUpdate(false);
+    }, [update, list]);
 
     return (
         <div className={classes.root}>
@@ -70,26 +82,27 @@ const ViewEntry = () => {
                 <Grid item xs={3}>
                     <Paper className={classes.paper}>
                         <Grid className={classes.fullDim} container direction='row' justify='center' alignItems='center' >
-                            <Avatar alt="Remy Sharp" src="/assets/img/students/boy.svg" />
+                            <Avatar alt={name} src={`/assets/img/students/${profilePicture}`} />
                         </Grid>
                     </Paper>
                 </Grid>
                 <Grid direction='row' justify='center' alignItems='center' className={classes.entryDetail} container>
                     <Grid item>
                         <div className={`${classes.name} ${classes.fullDim}`}>
-                            <DoneAllOutlinedIcon />
+
+                            {attendance === 'null' ? <WarningOutlinedIcon /> : attendance === 'Present' ? <DoneAllOutlinedIcon /> : attendance === 'Absent' ? <RemoveOutlinedIcon /> : <WatchLaterOutlinedIcon />}
                         </div>
                     </Grid>
                     <Grid item className={classes.paper}>
                         <div className={`${classes.name} ${classes.fullDim}`}>
-                            Present
+                            {attendance}
                         </div>
                     </Grid>
                 </Grid>
                 <Grid className={classes.entryDetail} item xs={3}>
                     <Paper className={classes.paper}>
                         <span className={`${classes.name} ${classes.fullDim}`}>
-                            Saif Ul Islam
+                            {name}
                         </span>
                     </Paper>
                 </Grid>
