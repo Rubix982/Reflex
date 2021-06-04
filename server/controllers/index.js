@@ -20,7 +20,7 @@ module.exports.loginUser = async (req, res) => {
 
 module.exports.postFirstLoginInformation = async (req, res) => {
   try {
-    await postUserInformationForBio(req.userHandle, req.body.userInformation);
+    await postUserInformationForBio(req.userHandle, req.body.userInformation, req.body.biography);
     return res.status(200).json({ msg: 'Succesfully posted first login information' });
   } catch (error) {
     return res.status(500).json({ msg: `Unable to perform insertion, due to error "${error.message}"` });
@@ -160,8 +160,8 @@ module.exports.changePassword = async (req, res) => {
     }));
   } catch (error) {
     return res.status(500).json({
-      msg: `Unable to get teacher 
-      information at the moment, due
+      msg: `Unable to change the password 
+      at the moment, due
        to error "${error.message}"`,
     });
   }

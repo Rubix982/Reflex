@@ -21,7 +21,7 @@ const postUserInformationForBio = async (__handler, __userInformationBlob) => {
   }
 
   // Insert into MySQL database
-  const query = `UPDATE REFLEX.Teacher SET ProfilePicture='${__userInformationBlob.profilePicture}' WHERE Handle='${__handler}'`;
+  const query = `UPDATE REFLEX.Teacher SET ProfilePicture='${__userInformationBlob.profilePicture}', Biography='${__userInformationBlob.biography}' WHERE Handle='${__handler}'`;
   try {
     await mysql.connection.query(query);
   } catch (errorMySqlConnection) {

@@ -8,6 +8,7 @@ const MainContent = () => {
   const { firstLogin } = useContext(loginUserContext);
   const pictureSelection = [false, false, false, false]
   const [selectPicture, setSelectPicture] = useState(pictureSelection);
+  const [biographyState, setBiographyState] = useState('');  
   const [isMale, setIsMale] = useState(true);
   let history = useHistory();
   let isFormSubmitted = false;
@@ -37,6 +38,7 @@ const MainContent = () => {
     try {
       await sendFirstLoginToBackend({
         profilePicture: finalProfilePicture,
+        biography: biographyState,
       });
       alert('Sucessfully filled the form!')
       firstLogin.setter(false);
@@ -156,6 +158,9 @@ const MainContent = () => {
   if (isFormSubmitted === true) {
     history.push('/feed');
   } else {
+
+    console.log(biographyState);
+
     return (
       <div className={ComponentStyling.content}>
         <h1>Welcome!</h1>
@@ -182,6 +187,25 @@ const MainContent = () => {
           </div>
 
           <div className={ComponentStyling.Spacing}></div>
+
+          <div className={`${ComponentStyling.FieldBox} ${ComponentStyling.Bio}`}>
+            <label>
+              What should your biography look like?
+            <span>( 200 characters max )</span>
+            </label>
+            <br />
+            <textarea
+              type="text"
+              name="biography"
+              aria-placeholder="I like sports! Or I’m a website designer!"
+              placeholder="I like sports! Or I’m a website designer!"
+              className={ComponentStyling.ForBioTextArea}
+              maxLength="200"
+              rows="4"
+              cols="50"
+              onChange={(event) => setBiographyState(event.target.value)}
+            />
+          </div>
 
           <input
             className={ComponentStyling.login}

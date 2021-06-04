@@ -2,7 +2,7 @@ import API from '../API/API.js';
 require('dotenv').config();
 
 export const sendFirstLoginToBackend = async (__userInformationBlob) => {
-    if (!__userInformationBlob.profilePicture) {
+    if (!__userInformationBlob.profilePicture || !__userInformationBlob.biography) {
         throw new Error('Required fields are empty')
     }
 
